@@ -4,6 +4,7 @@ import _root_.android.app.Activity
 import _root_.android.os.Bundle
 import _root_.android.widget.Toast
 import _root_.android.view.View
+import _root_.android.os.Environment
 
 import com.napthats.android.ListenerUtils._
 
@@ -21,15 +22,15 @@ class MainActivity extends Activity with TypedActivity {
 //        }
 //      }
 //   )
-    findView(TR.test).setOnClickListener(function2ViewOnClickListener((_: View) => {
+    findView(TR.test).setOnClickListener((_: View) => {
       Toast.makeText(this, findView(TR.textview).getText(), Toast.LENGTH_SHORT).show()
-    }))
+    })
   }
   
 }
 
 object EnexUtil {
-  val  ENEX_PREFIX_PART_ONE =
+  val ENEX_PREFIX_PART_ONE =
     "<?xml version=\"1.0\" encoding=\"UTF-8\"?><!DOCTYPE en-export SYSTEM \"http://xml.evernote.com/pub/evernote-export.dtd\">" +
     "<en-export><note><title>"
 
