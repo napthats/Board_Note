@@ -33,7 +33,10 @@ object AndroidBuild extends Build {
     "tmp_project",
     file("."),
     settings = General.fullAndroidSettings ++
-               Seq (libraryDependencies += "com.napthats" %% "android_utils" % "0.2.0-SNAPSHOT")
+               Seq (
+                 libraryDependencies += "com.napthats" %% "android_utils" % "0.2.0-SNAPSHOT",
+                 libraryDependencies += "com.napthats" %% "evernote_utils" % "0.1.0-SNAPSHOT"
+               )
   )
 
   lazy val tests = Project (
