@@ -1,4 +1,4 @@
-package com.napthats.android
+package com.napthats.android.everboard
 
 import _root_.android.app.Activity
 import _root_.android.os.Bundle
@@ -21,6 +21,5 @@ class MainActivity extends Activity with TypedActivity {
       Evernote.createNote(this, "app test", findView(TR.textview).getText().toString())
     })
   }
-  
 }
 

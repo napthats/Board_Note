@@ -5,12 +5,15 @@
        android:layout_height="fill_parent"
        android:orientation="vertical">
 
+  <com.napthats.android.everboard.BoardView android:id="@+id/boardview"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"/>
 
   <EditText android:id="@+id/textview"
             android:gravity="top"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="1"/>
+            android:layout_height="wrap_content"/>
   <Button android:text="test"
           android:id="@+id/test"
             android:layout_width="wrap_content"
