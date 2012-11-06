@@ -25,7 +25,7 @@ class MainActivity extends Activity with TypedActivity {
     findView(TR.boardview).setOnTouchListener(new View.OnTouchListener() {
       override def onTouch(v: View, event: MotionEvent): Boolean = {
         //Toast.makeText(MainActivity.this, "test", Toast.LENGTH_SHORT).show()
-        findView(TR.boardview).onTouch(v, event)
+        findView(TR.boardview).onTouchEvent(event)
       }
     })
   }
