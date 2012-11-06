@@ -17,7 +17,7 @@ import _root_.org.metalev.multitouch.controller.MultiTouchController.PointInfo;
 import _root_.org.metalev.multitouch.controller.MultiTouchController.PositionAndScale;
 
 
-class Page(var x: Int, var y: Int, val size: Int, title: String) {
+class Page(var x: Int, var y: Int, var size: Int, val color: Int, title: String) {
 } 
 
 class BoardView(context: Context, attrs:AttributeSet) extends View(context, attrs) with MultiTouchObjectCanvas[Page]{
@@ -25,7 +25,8 @@ class BoardView(context: Context, attrs:AttributeSet) extends View(context, attr
   var prev_touch_x = 0
   var prev_touch_y = 0
 */
-  var page = new Page(200, 100, 20, "test")
+  var page = new Page(200, 100, 100, Color.RED, "test")
+  var page_alt = new Page(400, 400, 100, Color.BLUE, "test_alt")
 
   val multiTouchController = new MultiTouchController[Page](this)
 
@@ -34,24 +35,36 @@ class BoardView(context: Context, attrs:AttributeSet) extends View(context, attr
     super.onDraw(canvas)
 
     val paint = new Paint()
-    paint.setColor(Color.RED)
 
+    paint.setColor(page.color)
     canvas.drawRect(page.x, page.y, page.x + page.size, page.y + page.size, paint)
+
+    paint.setColor(page_alt.color)
+    canvas.drawRect(page_alt.x, page_alt.y, page_alt.x + page_alt.size, page_alt.y + page_alt.size, paint)
   }
 
   override def selectObject(page: Page, point: PointInfo) {
-    Toast.makeText(context, "touch!", Toast.LENGTH_SHORT).show()
+    Toast.makeText(context, page.color.toString, Toast.LENGTH_SHORT).show()
   }
   
   override def setPositionAndScale(page: Page, pos_scale: PositionAndScale, point: PointInfo): Boolean = {
+    page.x = pos_scale.getXOff.toInt
+    page.y = pos_scale.getYOff.toInt
+    page.size = (pos_scale.getScale * 100).toInt
+    invalidate()
     return true
   }
 
   override def getPositionAndScale(page: Page, pos_scale: PositionAndScale) {
+    pos_scale.set(page.x, page.y, true, page.size/100, false, page.size/100, page.size/100, false, 0)
   }
 
   override def getDraggableObjectAtPoint(point: PointInfo): Page = {
-    page
+    if (point.getX >= page.x && point.getX <= page.x + page.size &&
+        point.getY >= page.y && point.getY <= page.y + page.size) return page
+    else if (point.getX >= page_alt.x && point.getX <= page_alt.x + page_alt.size &&
+             point.getY >= page_alt.y && point.getY <= page_alt.y + page_alt.size) return page_alt
+    return null
   }
 
   override def onTouchEvent(event: MotionEvent): Boolean = multiTouchController.onTouchEvent(event)
