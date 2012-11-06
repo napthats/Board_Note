@@ -12,12 +12,13 @@ import _root_.android.view.MotionEvent
 import _root_.android.widget.Toast
 
 
+class Page(var x: Int, var y: Int, val size: Int, title: String) {
+} 
+
 class BoardView(context: Context, attrs:AttributeSet) extends View(context, attrs) {
-  var ball_x = 100
-  var ball_y = 300
-  var offset_x = 0
-  var offset_y = 0
-  val ball_size = 20
+  var prev_touch_x = 0
+  var prev_touch_y = 0
+  var page = new Page(200, 100, 20, "test")
 
   override def onDraw(canvas: Canvas) {
     super.onDraw(canvas)
@@ -25,7 +26,7 @@ class BoardView(context: Context, attrs:AttributeSet) extends View(context, attr
     val paint = new Paint()
     paint.setColor(Color.RED)
 
-    canvas.drawRect(ball_x, ball_y, ball_x + ball_size, ball_y + ball_size, paint)
+    canvas.drawRect(page.x, page.y, page.x + page.size, page.y + page.size, paint)
   }
 
   def onTouch(v: View, event: MotionEvent): Boolean = {
@@ -34,15 +35,15 @@ class BoardView(context: Context, attrs:AttributeSet) extends View(context, attr
 
     event.getAction() match {
       case MotionEvent.ACTION_MOVE => 
-        val diff_x = offset_x - x
-        val diff_y = offset_y - y
-        ball_x -= diff_x
-        ball_y -= diff_y
-        offset_x = x
-        offset_y = y
+        val diff_x = prev_touch_x - x
+        val diff_y = prev_touch_y - y
+        page.x -= diff_x
+        page.y -= diff_y
+        prev_touch_x = x
+        prev_touch_y = y
       case MotionEvent.ACTION_DOWN =>
-        offset_x = x
-        offset_y = y
+        prev_touch_x = x
+        prev_touch_y = y
       case MotionEvent.ACTION_UP =>
       case _ =>
     }
