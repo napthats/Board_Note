@@ -37,7 +37,6 @@ class BoardView(context: Context, attrs:AttributeSet) extends View(context, attr
 
   var page = Page(200.0, 100.0)
   var page_alt = Page(400.0, 400.0)
-  var page_dummy = Page.getDummy
   
 
 
@@ -89,7 +88,7 @@ class BoardView(context: Context, attrs:AttributeSet) extends View(context, attr
         pos.y >= page.y && pos.y <= page.y + page.size) return page
     else if (pos.x >= page_alt.x && pos.x <= page_alt.x + page_alt.size &&
              pos.y >= page_alt.y && pos.y <= page_alt.y + page_alt.size) return page_alt
-    return page_dummy
+    return Page.dummy
   }
 
   override def onTouchEvent(event: MotionEvent): Boolean = multiTouchController.onTouchEvent(event)

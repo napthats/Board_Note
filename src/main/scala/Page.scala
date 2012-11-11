@@ -10,7 +10,7 @@ import _root_.android.graphics.Color
 
 object Page {
   def apply(x: Double, y: Double) = new Page(x, y, 100.0, Color.RED, "")
-  def getDummy = new Page(0.0, 0.0, 0.0, 0, "") {
+  val dummy = new Page(0.0, 0.0, 0.0, 0, "") {
     override def scale = BoardView.base_scale
     override def dragAndPinch(pos_scale: PositionAndScale) {
       super.dragAndPinch(pos_scale)
@@ -34,3 +34,7 @@ class Page private (var x: Double, var y: Double, var size: Double, val color: I
     this.size = pos_scale.getScale * 100
   }    
 }
+
+
+//object PageContainer {
+  
