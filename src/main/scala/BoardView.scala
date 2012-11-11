@@ -35,18 +35,9 @@ object BoardView {
 class BoardView(context: Context, attrs:AttributeSet) extends View(context, attrs) with MultiTouchObjectCanvas[Page]{
   val multiTouchController = new MultiTouchController[Page](this)
 
-  var page = new Page(200.0, 100.0, 100.0, Color.RED, "test")
-  var page_alt = new Page(400.0, 400.0, 100.0, Color.BLUE, "test_alt")
-  var page_dummy = new Page(0.0, 0.0, 0.0, 0, "") {
-    override def scale = BoardView.base_scale
-    override def dragAndPinch(pos_scale: PositionAndScale) {
-      super.dragAndPinch(pos_scale)
-      val pos = BoardView.window2WorldPosition(pos_scale.getXOff, pos_scale.getYOff)
-      BoardView.base_x -= pos.x
-      BoardView.base_y -= pos.y
-      BoardView.base_scale = pos_scale.getScale
-    }
-  }
+  var page = Page(200.0, 100.0)
+  var page_alt = Page(400.0, 400.0)
+  var page_dummy = Page.getDummy
   
 
 
