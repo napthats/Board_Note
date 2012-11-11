@@ -35,9 +35,8 @@ object BoardView {
 class BoardView(context: Context, attrs:AttributeSet) extends View(context, attrs) with MultiTouchObjectCanvas[Page]{
   val multiTouchController = new MultiTouchController[Page](this)
 
-  var page = Page(200.0, 100.0)
-  var page_alt = Page(400.0, 400.0)
-  
+  PageContainer.add(Page(200.0, 100.0, Color.BLUE))
+  PageContainer.add(Page(400.0, 400.0, Color.RED))
 
 
   //for Canvas#drawRect
@@ -46,26 +45,7 @@ class BoardView(context: Context, attrs:AttributeSet) extends View(context, attr
 
   override def onDraw(canvas: Canvas) {
     super.onDraw(canvas)
-
-    val paint = new Paint()
-
-    paint.setColor(page.color)
-    canvas.drawRect(
-      (page.x - BoardView.base_x) * BoardView.base_scale,
-      (page.y - BoardView.base_y) * BoardView.base_scale,
-      (page.x + page.size - BoardView.base_x) * BoardView.base_scale,
-      (page.y + page.size - BoardView.base_y) * BoardView.base_scale,
-      paint
-    )
-
-    paint.setColor(page_alt.color)
-    canvas.drawRect(
-      (page_alt.x - BoardView.base_x) * BoardView.base_scale,
-      (page_alt.y - BoardView.base_y) * BoardView.base_scale,
-      (page_alt.x + page_alt.size - BoardView.base_x) * BoardView.base_scale,
-      (page_alt.y + page_alt.size - BoardView.base_y) * BoardView.base_scale,
-      paint
-    )
+    PageContainer.drawAll(canvas)
   }
 
   override def selectObject(page: Page, point: PointInfo) {
@@ -85,11 +65,7 @@ class BoardView(context: Context, attrs:AttributeSet) extends View(context, attr
 
   override def getDraggableObjectAtPoint(point: PointInfo): Page = {
     val pos = BoardView.window2WorldPosition(point.getX, point.getY)
-    if (pos.x >= page.x && pos.x <= page.x + page.size &&
-        pos.y >= page.y && pos.y <= page.y + page.size) return page
-    else if (pos.x >= page_alt.x && pos.x <= page_alt.x + page_alt.size &&
-             pos.y >= page_alt.y && pos.y <= page_alt.y + page_alt.size) return page_alt
-    return Page.dummy
+    PageContainer.getAtPoint(pos).getOrElse(Page.dummy)
   }
 
   override def onTouchEvent(event: MotionEvent): Boolean = multiTouchController.onTouchEvent(event)
