@@ -38,6 +38,8 @@ class Page private (var x: Double, var y: Double, var size: Double, val color: I
     val paint = new Paint()
     paint.setColor(color)
     canvas.drawRect(winX, winY, winX + winSize, winY + winSize, paint)
+    paint.setColor(Color.WHITE)
+    canvas.drawRect(winX + winSize * 0.05, winY + winSize * 0.05, winX + winSize * 0.95, winY + winSize * 0.95, paint)
   }
 }
 
