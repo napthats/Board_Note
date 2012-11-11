@@ -94,28 +94,4 @@ class BoardView(context: Context, attrs:AttributeSet) extends View(context, attr
 
   override def onTouchEvent(event: MotionEvent): Boolean = multiTouchController.onTouchEvent(event)
   
-/*
-  def onTouch(v: View, event: MotionEvent): Boolean = {
-    val x: Int = event.getX.toInt
-    val y: Int = event.getY.toInt
-
-    event.getAction() match {
-      case MotionEvent.ACTION_MOVE => 
-        val diff_x = prev_touch_x - x
-        val diff_y = prev_touch_y - y
-        page.x -= diff_x
-        page.y -= diff_y
-        prev_touch_x = x
-        prev_touch_y = y
-      case MotionEvent.ACTION_DOWN =>
-        prev_touch_x = x
-        prev_touch_y = y
-      case MotionEvent.ACTION_UP =>
-      case _ =>
-    }
-    //Toast.makeText(context, "test", Toast.LENGTH_SHORT).show()
-    this.invalidate()
-    return true
-  }
-*/
 }
