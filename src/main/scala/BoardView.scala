@@ -49,7 +49,6 @@ class BoardView(context: Context, attrs:AttributeSet) extends View(context, attr
   }
 
   override def selectObject(page: Page, point: PointInfo) {
-    Toast.makeText(context, page.color.toString, Toast.LENGTH_SHORT).show()
   }
   
   override def setPositionAndScale(page: Page, pos_scale: PositionAndScale, point: PointInfo): Boolean = {
