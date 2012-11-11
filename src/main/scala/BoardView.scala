@@ -73,7 +73,8 @@ class BoardView(context: Context, attrs:AttributeSet) extends View(context, attr
   }
   
   override def setPositionAndScale(page: Page, pos_scale: PositionAndScale, point: PointInfo): Boolean = {
-    page.dragAndPinch(pos_scale)
+    val pos = BoardView.window2WorldPosition(pos_scale.getXOff, pos_scale.getYOff)
+    page.dragAndPinch(new {val x = pos.x; val y = pos.y; val scale: Double = pos_scale.getScale})
     invalidate()
     return true
   }
