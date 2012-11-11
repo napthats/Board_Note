@@ -10,7 +10,7 @@ object Page {
   private val height = 20.0
   private def winWidth = width * BoardView.base_scale
   private def winHeight = height * BoardView.base_scale
-  def apply(x: Double, y: Double, color: Int) = new Page(x, y, color, "")
+  def apply(title: String, x: Double, y: Double, color: Int) = new Page(x, y, color, title)
   val dummy = new Page(0.0, 0.0, 0, "") {
     override def scale = BoardView.base_scale
     override def scale_=(x: Double) {}
@@ -44,15 +44,14 @@ class Page private (var x: Double, var y: Double, val color: Int, title: String)
   }    
 
   def containPoint(pos: {val x: Double; val y: Double}): Boolean =
-    pos.x >= x && pos.x <= x + width && pos.y >= y && pos.y <= y + height
+    pos.x >= x && pos.x <= x + width && pos.y >= y - height && pos.y <= y
 
-  //TODO: change parameter to window-coordinated canvas
+  //TODO: change canvas to window-coordinated Canvas
   def draw(canvas: Canvas) {
     val paint = new Paint()
     paint.setColor(color)
-    canvas.drawRect(winX, winY, winX + winWidth, winY + winHeight, paint)
-    paint.setColor(Color.WHITE)
-    canvas.drawRect(winX + winWidth * 0.05, winY + winHeight * 0.05, winX + winWidth * 0.95, winY + winHeight * 0.95, paint)
+    paint.setTextSize(24.0 * scale * BoardView.base_scale)
+    canvas.drawText(title, winX, winY, paint)
   }
 }
 

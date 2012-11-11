@@ -35,8 +35,8 @@ object BoardView {
 class BoardView(context: Context, attrs:AttributeSet) extends View(context, attrs) with MultiTouchObjectCanvas[Page]{
   val multiTouchController = new MultiTouchController[Page](this)
 
-  PageContainer.add(Page(200.0, 100.0, Color.BLUE))
-  PageContainer.add(Page(400.0, 400.0, Color.RED))
+  PageContainer.add(Page("test1", 200.0, 100.0, Color.BLUE))
+  PageContainer.add(Page("test2", 400.0, 400.0, Color.RED))
 
 
   //for Canvas#drawRect
